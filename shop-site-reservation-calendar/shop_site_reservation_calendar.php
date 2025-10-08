@@ -9,7 +9,7 @@
  * Plugin Name:       Shop Site Reservation Calendar
  * Plugin URI:        https://votra.jp/lp/wpcal/
  * Description:       店舗サイト予約カレンダー
- * Version:           2.0.3
+ * Version:           2.0.4
  * Author:            VOTRA Co., Ltd.
  * Author URI:        https://votra.jp
  * Update URI:        https://license-server.yoshinori-nishibayashi.workers.dev/update.json

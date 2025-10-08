@@ -188,6 +188,7 @@ function rcal_verify_license($force = false) {
             'expires_at' => isset($data['expires_at']) ? $data['expires_at'] : null,
             'features'   => isset($data['features']) ? $data['features'] : array(),
             'reason'     => $valid ? null : (isset($data['reason']) ? $data['reason'] : 'unknown'),
+            'status'     => isset($data['status']) ? $data['status'] : 'active', // サブスクステータス（active/canceled/expired）
         );
 
         // TTLの決定（ttl_hintがあればそれを使用、なければ12時間）
@@ -252,6 +253,21 @@ function rcal_get_license_info() {
         return null;
     }
     return $cache;
+}
+
+/**
+ * プラン名の日本語変換
+ * 
+ * @param string $plan プランID
+ * @return string 日本語のプラン名
+ */
+function rcal_translate_plan_name($plan) {
+    $plan_names = array(
+        'standard'         => 'スタンダード（月額）',
+        'standard_monthly' => 'スタンダード（月額）',
+        'standard_annual'  => 'スタンダード（年額）',
+    );
+    return isset($plan_names[$plan]) ? $plan_names[$plan] : $plan;
 }
 
 /**

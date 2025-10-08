@@ -250,15 +250,48 @@ function _rcal_master_settings_page(){
                         <th scope="row">状態</th>
                         <td>
                             <?php if($is_licensed && $license_info): ?>
+                                <?php 
+                                $status = isset($license_info['status']) ? $license_info['status'] : 'active';
+                                $is_canceled = ($status === 'canceled');
+                                ?>
+                                
                                 <span style="color: green; font-weight: bold;">✓ 有効</span>
+                                
+                                <?php if($is_canceled): ?>
+                                    <span style="color: #d68300; font-weight: bold;">（キャンセル済み）</span>
+                                <?php endif; ?>
+                                
                                 <?php if(!empty($license_info['plan'])): ?>
-                                    / プラン: <strong><?php echo esc_html($license_info['plan']); ?></strong>
+                                    / プラン: <strong><?php echo esc_html(rcal_translate_plan_name($license_info['plan'])); ?></strong>
                                 <?php endif; ?>
+                                
                                 <?php if(!empty($license_info['expires_at'])): ?>
-                                    / 期限: <?php echo esc_html($license_info['expires_at']); ?>
-                                <?php else: ?>
-                                    / 期限: 無期限
+                                    <?php 
+                                    $expires_date = date_i18n('Y年n月j日', strtotime($license_info['expires_at']));
+                                    $is_near_expiry = (strtotime($license_info['expires_at']) - time()) < (7 * DAY_IN_SECONDS);
+                                    ?>
+                                    / 
+                                    <?php if($is_canceled): ?>
+                                        <span style="color: #d68300;"><?php echo esc_html($expires_date); ?> まで利用可能</span>
+                                    <?php else: ?>
+                                        次回更新: <?php echo esc_html($expires_date); ?>
+                                    <?php endif; ?>
+                                    
+                                    <?php if($is_near_expiry && !$is_canceled): ?>
+                                        <br>
+                                        <span style="color: #d68300;">
+                                            ⚠️ まもなく更新日です。支払い方法が有効か確認してください。
+                                        </span>
+                                    <?php endif; ?>
                                 <?php endif; ?>
+                                
+                                <?php if($is_canceled): ?>
+                                    <br>
+                                    <span style="color: #d68300;">
+                                        ⚠️ サブスクリプションはキャンセルされています。継続利用するには再度ご契約ください。
+                                    </span>
+                                <?php endif; ?>
+                                
                             <?php else: ?>
                                 <span style="color: #d63638; font-weight: bold;">✗ 無効</span>
                                 <?php if($license_info && !empty($license_info['reason'])): ?>
@@ -280,6 +313,119 @@ function _rcal_master_settings_page(){
                 <button type="submit" name="rcal_license_recheck" class="button">接続テスト（再検証）</button>
             </form>
         </div>
+        
+        <!-- サブスクリプション管理セクション -->
+        <?php if($is_licensed && $license_key_raw): ?>
+            <hr style="margin: 30px 0;">
+            
+            <h3><?php echo esc_html__('サブスクリプション管理', 'ssrc'); ?></h3>
+            
+            <?php 
+            $status = isset($license_info['status']) ? $license_info['status'] : 'active';
+            $is_canceled = ($status === 'canceled');
+            ?>
+            
+            <?php if($is_canceled): ?>
+                <p style="color: #d68300; font-weight: bold;">
+                    <?php echo esc_html__('現在、サブスクリプションはキャンセルされています。', 'ssrc'); ?>
+                </p>
+                <p><?php echo esc_html__('継続利用を希望される場合は、下記ボタンから再度ご契約ください。', 'ssrc'); ?></p>
+            <?php else: ?>
+                <p><?php echo esc_html__('Stripeのセキュアなページで以下の操作が可能です：', 'ssrc'); ?></p>
+                <ul style="margin-left: 20px; margin-bottom: 15px; list-style: disc;">
+                    <li><?php echo esc_html__('サブスクリプションのキャンセル', 'ssrc'); ?></li>
+                    <li><?php echo esc_html__('支払い方法の更新（クレジットカード変更）', 'ssrc'); ?></li>
+                    <li><?php echo esc_html__('請求書の確認・ダウンロード', 'ssrc'); ?></li>
+                    <li><?php echo esc_html__('請求履歴の確認', 'ssrc'); ?></li>
+                </ul>
+            <?php endif; ?>
+            
+            <button type="button" 
+                    id="rcal-manage-subscription" 
+                    class="button button-secondary">
+                <span class="dashicons dashicons-admin-settings" style="vertical-align: middle;"></span>
+                <?php 
+                if($is_canceled) {
+                    echo esc_html__('サブスクリプションを再開', 'ssrc');
+                } else {
+                    echo esc_html__('サブスクリプションを管理', 'ssrc');
+                }
+                ?>
+            </button>
+            
+            <span id="rcal-portal-loading" style="display:none; margin-left: 10px;">
+                <span class="spinner is-active" style="float: none; margin: 0;"></span>
+                <?php echo esc_html__('リダイレクト中...', 'ssrc'); ?>
+            </span>
+            
+            <p class="description" style="margin-top: 10px;">
+                <?php echo esc_html__('※ Stripeのセキュアなページにリダイレクトされます。', 'ssrc'); ?>
+                <?php if(!$is_canceled): ?>
+                    <br><?php echo esc_html__('※ サブスクリプションをキャンセルした場合、次回更新日まで引き続きご利用いただけます。', 'ssrc'); ?>
+                <?php endif; ?>
+            </p>
+            
+            <script>
+            (function($) {
+                $('#rcal-manage-subscription').on('click', function() {
+                    const button = $(this);
+                    const loading = $('#rcal-portal-loading');
+                    
+                    // ボタンを無効化
+                    button.prop('disabled', true);
+                    loading.show();
+                    
+                    // リクエストボディを準備
+                    const requestBody = {
+                        license_key: <?php echo wp_json_encode($license_key_raw); ?>,
+                        return_url: window.location.href
+                    };
+                    
+                    // デバッグ：リクエスト内容をログに出力
+                    console.log('Request body:', requestBody);
+                    console.log('License key length:', requestBody.license_key ? requestBody.license_key.length : 0);
+                    
+                    // Customer Portal セッションを作成
+                    fetch('https://license-server.yoshinori-nishibayashi.workers.dev/license/customer-portal', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(requestBody)
+                    })
+                    .then(response => {
+                        // レスポンスの詳細をログに出力（デバッグ用）
+                        console.log('Response status:', response.status);
+                        console.log('Response headers:', response.headers);
+                        return response.json();
+                    })
+                    .then(data => {
+                        // レスポンスデータをログに出力（デバッグ用）
+                        console.log('Response data:', data);
+                        
+                        if (data.url) {
+                            // Customer Portalにリダイレクト
+                            window.location.href = data.url;
+                        } else {
+                            // エラー処理（エラー内容を表示）
+                            const errorMsg = data.error || 'unknown_error';
+                            const errorDetail = data.message || '';
+                            console.error('API Error:', errorMsg, errorDetail);
+                            alert(<?php echo wp_json_encode(__('エラーが発生しました: ', 'ssrc')); ?> + errorMsg + (errorDetail ? '\n' + errorDetail : ''));
+                            button.prop('disabled', false);
+                            loading.hide();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch Error:', error);
+                        alert(<?php echo wp_json_encode(__('通信エラーが発生しました。', 'ssrc')); ?>);
+                        button.prop('disabled', false);
+                        loading.hide();
+                    });
+                });
+            })(jQuery);
+            </script>
+        <?php endif; ?>
         
         <!-- 既存のマスター設定フォーム（ライセンス有効時のみ表示） -->
         <?php if($is_licensed): ?>
