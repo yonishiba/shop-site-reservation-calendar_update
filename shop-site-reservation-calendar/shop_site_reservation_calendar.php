@@ -7,13 +7,13 @@
  * 
  * @wordpress-plugin
  * Plugin Name:       Shop Site Reservation Calendar
- * Plugin URI:        https://votra.jp/shop-site-reservation-calendar/
+ * Plugin URI:        https://votra.jp/lp/wpcal/
  * Description:       店舗サイト予約カレンダー
- * Version:           2.0.0
+ * Version:           2.0.3
  * Author:            VOTRA Co., Ltd.
  * Author URI:        https://votra.jp
- * Update URI:        https://votra.jp/shop-site-reservation-calendar/
- * Requires PHP:      7.4
+ * Update URI:        https://license-server.yoshinori-nishibayashi.workers.dev/update.json
+ * Requires PHP:      8.0
  * Requires at least: 6.0
  * Copyright 2008-2025 VOTRA (email : info@votra.jp)
  */
@@ -321,6 +321,9 @@ function _rcal_deactivate() {
  * プラグイン削除時のクリーンアップ
  * テーブル削除
  * オプション削除
+ * 
+ * 注意: この関数はプラグイン削除時のみ実行されます。
+ * プラグイン更新時には実行されません。
  */
 function _rcal_uninstall() {
 	global $wpdb, $rcal_tableName, $rcal_db_version_optionKey;
@@ -328,9 +331,21 @@ function _rcal_uninstall() {
 	delete_option($rcal_db_version_optionKey);
 	
 	// ライセンス関連のデータ削除
+	// 注意: プラグイン削除時のみ削除されます（更新時は保持）
 	delete_option('rcal_license_key');
 	delete_option('rcal_install_uuid');
 	delete_transient('rcal_license_cache');
+	
+	// その他のオプション削除
+	delete_option('rcal_accent_color');
+	delete_option('rcal_on_accent_color');
+	delete_option('rcal_privacypolicy_url');
+	delete_option('rcal_reply_email_greeting');
+	delete_option('rcal_reply_email_signature');
+	delete_option('rcal_complete_message');
+	delete_option('rcal_form_notes');
+	delete_option('rcal_selectShopContact_btn_text');
+	delete_option('rcal_selectShopContact_btn_icon');
 
 	$table_name = "".$wpdb->prefix . $rcal_tableName."";
 	$sql = "DROP TABLE IF EXISTS ".$table_name."";
@@ -340,6 +355,7 @@ function _rcal_uninstall() {
 /* ------------------------------------------------------------------------------ */
 require RCAL_DIR.'includes/utils.php';
 require RCAL_DIR.'includes/license.php';
+require RCAL_DIR.'includes/updater.php';
 require RCAL_DIR.'includes/function.php';
 require RCAL_DIR.'admin/settings.php';
 require RCAL_DIR.'view/settings.php';

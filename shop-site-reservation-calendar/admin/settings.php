@@ -84,6 +84,16 @@ function rcal_add_master_settings_page(){
     );
 }
 
+/**
+ * プラグイン一覧に「設定」リンクを追加
+ */
+add_filter('plugin_action_links_shop-site-reservation-calendar/shop_site_reservation_calendar.php', 'rcal_add_settings_link');
+function rcal_add_settings_link($links){
+    $settings_link = '<a href="' . admin_url('options-general.php?page=rcal-master-settings') . '">設定</a>';
+    array_unshift($links, $settings_link);
+    return $links;
+}
+
 function _rcal_master_settings_page(){
     if(!current_user_can('manage_options')){ return; }
     
