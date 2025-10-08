@@ -1,0 +1,39 @@
+.rcal_hr {
+  margin-top: 40px;
+}
+.rcal_time_slots {
+  &_p {
+    margin-bottom: 10px !important;
+  }
+  &_preview {
+    margin-top: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    background-color: #f7f7f7;
+    &_description {
+      font-size: 12px;
+      color: #666;
+    }
+  }
+  &_items {
+    display: flex;
+    flex-flow: wrap;
+    gap: 8px;
+    li {
+      padding: 4px 8px;
+      border-radius: 4px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      color: #666;
+    }
+  }
+}
+.rcal_weekly_holidays {
+  display: flex;
+  gap: 18px;
+  label {
+    cursor: pointer;
+  }
+}

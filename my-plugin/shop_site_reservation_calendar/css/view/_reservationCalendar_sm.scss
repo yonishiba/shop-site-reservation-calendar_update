@@ -1,0 +1,417 @@
+@media only screen and (max-width: 767px) {
+  #selectShopContactArea {
+    width: calc(100% - 4rem);
+    border-radius: 1rem;
+    .rcal_calendarMainWrap {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      .rcal_statusDetailWrap {
+        margin-right: auto;
+        margin-left: auto;
+
+        .rcal_statusDetail {
+          padding: 3.8vw 0;
+          flex-wrap: wrap;
+
+          .detailBox {
+            margin-top: 2.8vw;
+            margin-left: 0;
+
+            &:first-child {
+              margin-top: 0;
+            }
+
+            p {
+              margin-left: 4.93vw;
+              margin-bottom: 10px;
+
+              &:first-of-type {
+                margin-left: 0;
+              }
+
+              .icon {
+                &.tel:before {
+                  font-size: 3.2vw;
+                }
+              }
+
+              .text {
+                margin-left: 1.33vw;
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+
+      .rcal_calendarSliderWrap {
+        /*width: 90% !important;*/
+        margin-right: auto;
+        margin-left: auto;
+        position: static !important;
+      }
+
+      .rcal_calendarFooter {
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+
+    .rcal_calendar {
+      margin-top: 4vw;
+
+      table {
+        margin-bottom: 1px;
+
+        tr {
+          padding-top: 0.66vw;
+
+          &.week {
+            height: 6.12vw;
+          }
+        }
+
+        th {
+          width: 14.06%;
+          padding-left: 0.26%;
+          font-size: 3.46vw;
+        }
+
+        td {
+          width: 14.06%;
+          padding-left: 0.26%;
+          font-size: 3.46vw;
+          padding-top: 0.26%;
+
+          &.eventinfo a {
+            padding: 3.33vw 0;
+
+            .eventLink {
+              /*margin-top: 2.26vw;*/
+              margin-top: 2px;
+              line-height: 1.1;
+              font-size: 2.8vw;
+              // font-size: 1rem;
+              white-space: nowrap;
+              margin-top: 2px;
+            }
+          }
+
+          .tdInner {
+            height: 15.33vw;
+            padding: 3vw 0;
+
+            > * {
+              margin-top: 0.1vh;
+            }
+          }
+        }
+      }
+
+      .num {
+        font-size: 3.46vw;
+      }
+
+      .telIcon_swing {
+        width: 3.4vw;
+        height: 3.4vw;
+      }
+    }
+
+    .rcal_calendar_timeTableWrap {
+      margin-top: 0;
+
+      &.loading {
+        margin-top: 6.66vw;
+      }
+    }
+
+    .timeTable {
+      margin: 6.66vw 0 0 !important;
+
+      > * {
+        margin-top: 3.46vw;
+      }
+
+      .timeTableTitleArea .title {
+        font-size: 3.73vw;
+      }
+
+      .timeTableDetailArea {
+        padding-bottom: 1rem;
+        // position: absolute;
+        width: 100%;
+        overflow-x: auto;
+        box-sizing: border-box;
+
+        ul {
+          justify-content: flex-start;
+
+          li {
+            width: auto;
+            margin-right: 1.73vw;
+
+            &:last-of-type {
+              padding-right: 5vw;
+            }
+
+            .timeBtnWrap {
+              padding: 2.63vw 4.4vw;
+              box-sizing: border-box;
+
+              .icon {
+                width: 18px;
+                height: 18px;
+
+                &:before {
+                  width: 18px !important;
+                  height: 18px !important;
+                }
+              }
+
+              .time {
+                margin-left: 2.66vw;
+                font-size: 4.26vw;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .rcal_calendarHeader .rcal_calendarTitle {
+      font-size: 5.33vw;
+
+      .monthNum {
+        font-size: 9.33vw;
+      }
+    }
+
+    .eventinfoTextWrap * {
+      font-size: 3.2vw;
+    }
+
+    .rcal_calendarSliderWrap.rcal_calendarSliderEnabled {
+      padding-top: 1.46vw;
+
+      .rcal_calendarSliderControllers {
+        width: 10.66vw;
+        height: 10.66vw;
+        top: 31vw;
+
+        &.rcal_calendarSliderNext {
+          width: 30px;
+          height: 30px;
+        }
+
+        &.rcal_calendarSliderPrev {
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+
+    .rcal_display_ajax_calendarMainWrap {
+      > * {
+        margin-top: 7.06vw;
+      }
+    }
+
+    .rcal_calendarReservationTelArea {
+      margin-top: 10.66vw;
+      padding: 7.33vw;
+
+      > * {
+        margin-top: 3.33vw;
+      }
+
+      .telText {
+        font-size: 3.73vw;
+      }
+
+      .telInfoWrap {
+        flex-wrap: wrap;
+
+        > * {
+          width: 100%;
+          margin-top: 2.66vw;
+          margin-left: 0;
+
+          &:first-child {
+            margin-top: 0;
+          }
+        }
+
+        .telNumber {
+          justify-content: center;
+
+          > * {
+            margin-left: 2vw;
+          }
+
+          .icon {
+            width: 5.86vw;
+            height: 5.86vw;
+          }
+
+          a {
+            font-size: 7.46vw;
+          }
+        }
+
+        .regularHolidayText {
+          font-size: 1.2rem;
+          text-align: center;
+        }
+      }
+    }
+
+    #selectShopContactArea {
+      width: 90%;
+      height: 86vh;
+      overflow-y: auto;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    #selectShopContact {
+      .selectShopContactInner {
+        width: 90%;
+        padding-bottom: 5%;
+        padding-top: 0;
+      }
+      #selectShopContactCloseBtn {
+        top: 10px;
+      }
+
+      .selectShopContactContents {
+        padding: 50px 0 0 0;
+
+        .selectShopListWrap {
+          dl {
+            margin-bottom: 0;
+            padding: 0;
+            width: 100%;
+            border: 0;
+            box-sizing: border-box;
+
+            dt {
+              padding: 16px 20px;
+              font-size: 16px;
+              box-sizing: border-box;
+              position: relative;
+              cursor: pointer;
+              background: #f0f0f0;
+              &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 14px;
+                width: 14px;
+                height: 2px;
+                background-color: #505050;
+              }
+              &:after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 20px;
+                width: 2px;
+                height: 14px;
+                background-color: #505050;
+              }
+
+              &.active:after {
+                content: none;
+              }
+            }
+
+            .areaName {
+              font-size: 14px;
+              font-family:
+                Koburina Gothic W3 JIS2004,
+                sans-serif;
+              font-weight: normal;
+            }
+          }
+
+          dd {
+            display: none;
+            margin-top: 0;
+          }
+
+          ul {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            list-style: none;
+            display: block;
+
+            li {
+              width: 100%;
+              margin-left: 0;
+              margin-top: 0;
+              border-top: 1px solid #f4f4f4;
+
+              &:first-of-type {
+                border-top: none;
+              }
+
+              a {
+                width: 100%;
+                padding: 20px;
+                color: #505050;
+                font-size: 13px;
+                letter-spacing: 0.06em;
+                line-height: 1;
+                border: none;
+                background-image: url(../../images/icon/arrow_darkGray.png);
+                background-repeat: no-repeat;
+                background-position: 90% center;
+                background-size: 20px;
+
+                &:visited,
+                &:focus,
+                &:active {
+                  color: #fff;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    #selectShopContact_calendar #selectShopContact_calendarPrevBtn {
+      top: 10px;
+      a {
+        padding-left: 5.33vw;
+        font-size: 3.73vw;
+      }
+    }
+  }
+
+  #selectShopContact_calendarArea {
+    .rcal_statusDetailWrap {
+      width: 100%;
+    }
+
+    .rcal_calendarSliderWrap {
+      width: 100% !important;
+
+      + .rcal_calendarSliderEnabled .rcal_calendarSliderControllers + {
+        .rcal_calendarSliderNext {
+          right: 0;
+        }
+
+        .rcal_calendarSliderPrev {
+          left: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@media only screen and (min-width: 1080px) {
+  .rcal_calendarMainWrap .rcal_statusDetailWrap .rcal_statusDetail .detailBox p:first-of-type {
+    margin-left: 0;
+  }
+
+  .rcal_calendar table td {
+    .ajaxDateStatusBtn:hover.tdInner {
+      background: var(--rcal-accent, #90edc7) !important;
+      color: var(--rcal-on-accent, #111111) !important;
+      .num,
+      .reserveLimitText,
+      .dateStatus,
+      .eventLink {
+        color: inherit;
+      }
+    }
+
+    .tdInner {
+      transition-property: border-color;
+      transition-duration: 0.5s;
+      transition-timing-function: ease;
+      transition-delay: 0s;
+    }
+  }
+
+  .timeTable .timeTableDetailArea ul li .timeBtnWrap.link:hover {
+    background: var(--rcal-accent, #90edc7) !important;
+    color: var(--rcal-on-accent, #111111) !important;
+    .time {
+      color: inherit;
+    }
+  }
+
+  #selectShopContact {
+    .selectShopContactContents .selectShopListWrap dl {
+      &:nth-of-type(-n + 4) {
+        margin-top: 0;
+      }
+
+      &:nth-of-type(4n + 1) {
+        margin-left: 0;
+      }
+
+      dd {
+        display: block !important;
+
+        ul li a {
+          transition-property: color, border-color, background-image;
+          transition-duration: 0.5s;
+          transition-timing-function: ease;
+          transition-delay: 0s;
+
+          &:hover {
+            color: #ffffff;
+            background-color: var(--rcal-accent, #90edc7) !important;
+            border-color: var(--rcal-accent, #90edc7) !important;
+            background-image: url(../../images/icon/arrow_white.png);
+          }
+        }
+      }
+    }
+
+    #selectShopContact_calendar #selectShopContact_calendarPrevBtn a {
+      transition-property: opacity;
+      transition-duration: 0.3s;
+      transition-timing-function: ease;
+      transition-delay: 0s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}

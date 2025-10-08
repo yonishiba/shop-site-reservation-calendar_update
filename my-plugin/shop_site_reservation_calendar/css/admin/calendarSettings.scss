@@ -1,0 +1,138 @@
+.rcal_calendarArea {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5%;
+  position: relative;
+  max-width: 1280px;
+  .rcal_adminTabs {
+    margin-top: 20px;
+  }
+  .rcal_adminTabs_nav {
+    display: flex;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding: 0;
+    list-style: none;
+
+    .rcal_adminTabs_navItem {
+      padding: 6px 10px;
+      border: 1px solid #ddd;
+      background: #f7f7f7;
+      cursor: pointer;
+      &.active {
+        background: #fff;
+        border-bottom-color: #fff;
+      }
+    }
+  }
+  .rcal_adminTabs_panel {
+    display: none;
+  }
+  .rcal_adminTabs_panel.active {
+    display: block;
+  }
+}
+
+.rcal_calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .submit {
+    margin: 0;
+    padding: 0;
+  }
+
+  .rcal_calendarDisabled {
+    top: 0;
+    right: 0;
+  }
+}
+
+.rcal_statusDetail {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem 0;
+
+  .bold {
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+  span + span::before {
+    display: inline-block;
+    padding: 0 0.75rem;
+    content: "|";
+  }
+}
+
+.rcal_calendarTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  .header {
+    .sun {
+      background-color: #fce9ea;
+    }
+
+    .mon,
+    .tue,
+    .wed,
+    .thu,
+    .fri {
+      background-color: #ddd;
+    }
+
+    .sat {
+      background-color: #e9f1fa;
+    }
+  }
+
+  th {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    border: 1px solid #ccc;
+
+    &.sun {
+      background-color: #fce9ea;
+    }
+    &.sat {
+      background-color: #e9f1fa;
+    }
+    &.holiday {
+      background-color: #fce9ea;
+    }
+
+    .num {
+      display: block;
+      text-align: center;
+      font-weight: bold;
+      padding: 0.5rem 0;
+    }
+  }
+
+  .timeTable {
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    dl {
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-items: center;
+      gap: 8px;
+      justify-content: space-evenly;
+    }
+
+    li,
+    dd {
+      margin: 0;
+    }
+  }
+}

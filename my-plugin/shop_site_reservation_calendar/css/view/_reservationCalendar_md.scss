@@ -1,0 +1,139 @@
+@media only screen and (min-width: 768px) and (max-width: 1079px) {
+  #selectShopContactArea {
+    height: 80vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    .rcal_calendar {
+      table {
+        td {
+          &.eventinfo {
+            a {
+              .eventLink {
+                font-size: 1.4rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  #selectShopContact {
+    .selectShopContactInner {
+      width: 90%;
+      padding-bottom: 5%;
+      padding-top: 0;
+    }
+    #selectShopContactCloseBtn {
+      top: 10px;
+    }
+
+    #selectShopContact_calendar {
+      #selectShopContact_calendarPrevBtn {
+        top: 10px;
+      }
+    }
+    .selectShopContactContents {
+      padding: 50px 0 0 0;
+      .selectShopListWrap {
+        dl {
+          padding: 0;
+          border: 0;
+          dt .areaName {
+            font-size: 14px;
+            font-family:
+              Koburina Gothic W3 JIS2004,
+              sans-serif;
+            font-weight: normal;
+          }
+
+          dd {
+            display: none;
+            margin-top: 0;
+
+            ul {
+              display: block;
+
+              li {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 0;
+                border-top: 1px solid #f4f4f4;
+
+                &:first-of-type {
+                  border-top: none;
+                }
+
+                a {
+                  width: 100%;
+                  padding: 20px;
+                  color: #505050;
+                  font-size: 13px;
+                  letter-spacing: 0.06em;
+                  line-height: 1;
+                  border: none;
+                  background-image: url(../../images/icon/arrow_darkGray.png);
+                  background-position: 90% center;
+
+                  &:visited,
+                  &:focus,
+                  &:active {
+                    color: #505050;
+                  }
+                }
+              }
+            }
+          }
+
+          width: 100%;
+          margin-left: 0;
+          margin-top: 0;
+          border-bottom: 1px solid #f4f4f4;
+          box-sizing: border-box;
+
+          dt {
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+            cursor: pointer;
+            background: #f0f0f0;
+            &::before {
+              content: "";
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              right: 3rem;
+              width: 1rem;
+              height: 2px;
+              background-color: #505050;
+            }
+            &::after {
+              content: "";
+              position: absolute;
+              top: 50%;
+              transform: translateY(-50%);
+              right: 3.4rem;
+              width: 2px;
+              height: 1rem;
+              background-color: #505050;
+            }
+
+            &.active:after {
+              content: none;
+            }
+          }
+        }
+      }
+    }
+
+    .rcal_display_ajax_calendarMainWrap {
+      .rcal_calendarReservationTelArea {
+        .telInfoWrap {
+          .telNumber {
+            width: 70%;
+          }
+        }
+      }
+    }
+  }
+}

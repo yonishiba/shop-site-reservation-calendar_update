@@ -1,0 +1,1351 @@
+#selectShopContactArea {
+  .rcal_calendarMainWrap {
+    width: 90%;
+    max-width: 1080px;
+    margin-right: auto;
+    margin-left: auto;
+
+    .rcal_statusDetailWrap {
+      .rcal_statusDetail {
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .detailBox {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          p {
+            display: flex;
+            align-items: center;
+            margin-left: 40px;
+            margin-bottom: 0;
+
+            .icon {
+              &.iconImg {
+                width: auto;
+                height: auto;
+              }
+              display: inline-block;
+              line-height: 1;
+              font-size: 1rem;
+
+              &.tel:before {
+                content: "TEL";
+                color: #505050;
+                font-size: 15px;
+                font-weight: bold;
+              }
+            }
+
+            .text {
+              margin-left: 8px;
+              font-size: 14px;
+              line-height: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.rcal_calendarMainWrap {
+  .rcal_calendarFooter .rcal_calendarReservationBtnArea {
+    .rcal_calendarReservationBtnWrap_link,
+    .rcal_calendarReservationBtnWrap_noLink {
+      display: none;
+    }
+
+    .rcal_calendarReservationBtnWrap_link.active,
+    .rcal_calendarReservationBtnWrap_noLink.active {
+      display: block;
+    }
+  }
+}
+
+#selectShopContactArea {
+  .rcal_calendar {
+    margin-top: 25px;
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-spacing: 0;
+      border: 0;
+      box-sizing: border-box;
+      background-color: #fff;
+
+      tr {
+        padding-top: 5px;
+
+        &:first-child {
+          padding-top: 0;
+        }
+
+        > *:first-child {
+          padding-left: 0;
+        }
+
+        &.week {
+          height: 24px;
+          .sat {
+            background: #dcecf7;
+          }
+          .sun {
+            background: #f7dce4;
+          }
+        }
+      }
+
+      th {
+        width: 13.88%;
+        padding-left: 0.47%;
+        font-size: 16px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      td {
+        width: 13.88%;
+        padding-left: 0.47%;
+        font-size: 16px;
+        text-align: center;
+        box-sizing: border-box;
+        padding-top: 5px;
+
+        &.sat a {
+          background: #dcecf7;
+        }
+        &.sun a {
+          background: #f7dce4;
+        }
+        &.holiday a {
+          background: #f7dce4;
+        }
+
+        &.eventinfo a {
+          &:hover .eventLink {
+            text-decoration: none;
+          }
+
+          .eventLink {
+            margin-top: 5px;
+            font-size: 16px;
+            color: #3cc4bf;
+            text-decoration: underline;
+            display: block;
+          }
+        }
+
+        &.past .tdInner .num {
+          color: #d2d2d2;
+        }
+
+        .ajaxDateStatusBtn.active {
+          background: var(--rcal-accent, #90edc7);
+          border-color: var(--rcal-accent, #90edc7);
+          color: var(--rcal-on-accent, #111111);
+          .num,
+          .reserveLimitText,
+          .dateStatus,
+          .eventLink {
+            color: inherit;
+          }
+        }
+
+        .tdInner {
+          height: 75px;
+          padding: 17px 0;
+          color: #666;
+          display: block;
+          border: 1px solid #eee;
+          box-sizing: border-box;
+
+          > * {
+            margin-top: 9px;
+
+            &:first-child {
+              margin-top: 0;
+            }
+          }
+        }
+
+        .icon {
+          width: 20px;
+          height: 20px;
+          display: inline-block;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+    }
+
+    .num {
+      display: block;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .dateStatus {
+      display: block;
+    }
+
+    .reserveLimitText {
+      display: block;
+      color: #505050;
+
+      .tel {
+        width: 100%;
+        text-align: center;
+
+        &:before {
+          content: "TEL";
+          font-size: 15px;
+          color: #505050;
+        }
+      }
+    }
+
+    .telIcon_swing {
+      width: 14px;
+      height: 14px;
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
+      background-image: url(../../images/icon/tel_red.png);
+      background-size: contain;
+      background-repeat: no-repeat;
+      -webkit-animation: telIcom_swing 2.5s linear 0s infinite;
+      animation: telIcom_swing 2.5s linear 0s infinite;
+      transform: rotate(0deg);
+    }
+  }
+}
+
+.rcal_calendar_timeTableWrap {
+  margin-top: 35px;
+
+  &.loading {
+    min-height: 30px;
+    position: relative;
+
+    &:before {
+      width: 100%;
+      height: 100%;
+      content: "";
+      display: block;
+      background-color: rgba(255, 255, 255, 0.8);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    &:after {
+      width: 30px;
+      height: 30px;
+      content: "";
+      display: block;
+      background-image: url("../../images/loading.gif");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 2;
+    }
+  }
+}
+
+#selectShopContactArea {
+  .timeTable {
+    > * {
+      margin-top: 15px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+
+    .timeTableTitleArea .title {
+      text-align: center;
+      font-size: 16px;
+      letter-spacing: 0.06em;
+    }
+
+    .timeTableDetailArea {
+      overflow-x: auto;
+    }
+    .timeTableDetailArea ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: nowrap;
+      gap: 12px;
+
+      li {
+        list-style: none;
+
+        .timeBtnWrap {
+          padding: 15px;
+          box-sizing: border-box;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          &.linkTel {
+            border: 1px solid #eee;
+            box-sizing: border-box;
+            transition-property: border-color;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            transition-delay: 0s;
+          }
+
+          &.link {
+            color: #666;
+            border: 1px solid #eee;
+
+            &.selected {
+              border-color: var(--rcal-accent, #90edc7);
+              background-color: var(--rcal-accent, #90edc7);
+
+              .icon {
+                color: var(--rcal-on-accent, #111111);
+              }
+
+              .time {
+                color: var(--rcal-on-accent, #111111);
+              }
+            }
+            box-sizing: border-box;
+            transition-property: border-color;
+            transition-duration: 0.3s;
+            transition-timing-function: ease;
+            transition-delay: 0s;
+
+            &.active {
+              background: var(--rcal-accent, #90edc7);
+              color: var(--rcal-on-accent, #111111);
+              .time {
+                color: inherit;
+              }
+            }
+          }
+
+          &.noLink {
+            border: 1px solid #eee;
+            box-sizing: border-box;
+          }
+
+          .icon {
+            width: auto;
+            height: auto;
+            display: inline-block;
+            line-height: 1;
+            font-size: 16px;
+
+            + .time {
+              margin-left: 10px;
+            }
+
+            &.tel {
+              width: auto;
+              height: auto;
+            }
+          }
+
+          .time {
+            margin-left: 10px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.rcal_calendarHeader {
+  text-align: center;
+  box-sizing: border-box;
+
+  .rcal_calendarTitle {
+    font-size: 20px;
+    line-height: 1;
+    display: inline-block;
+    vertical-align: baseline;
+
+    .monthNum {
+      display: inline-block;
+      vertical-align: baseline;
+      font-size: 40px;
+    }
+  }
+}
+
+.rcal_calendarFooter {
+  width: 100%;
+  box-sizing: border-box;
+  .rcal_calendarReservationBtnArea {
+    text-align: center;
+    a {
+      margin: 0 auto;
+      background: var(--rcal-accent, #90edc7);
+      color: var(--rcal-on-accent, #ffffff);
+      padding: 20px 40px;
+      font-weight: bold;
+      border-radius: calc(infinity * 1px);
+      display: table;
+    }
+  }
+}
+
+.calShop {
+  margin: 10px 0 20px;
+  padding: 24px;
+  color: var(--rcal-on-accent, #ffffff);
+  text-align: center;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    background: var(--rcal-accent, #90edc7);
+    top: 0;
+    left: -20px;
+    right: -20px;
+    width: calc(100% + 40px);
+    height: 100%;
+    z-index: -1;
+  }
+}
+
+.eventinfoTextWrap {
+  margin-bottom: 30px;
+
+  * {
+    font-size: 15px;
+    color: #000;
+  }
+
+  .caution {
+    display: block;
+    font-size: 90%;
+    margin-top: 5px;
+  }
+
+  .eventinfoText {
+    margin-top: 10px;
+    background-color: #e1f2f2;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 1.4;
+    text-align: center;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    .red {
+      color: #3cc4bf;
+      font-size: 1.4rem;
+    }
+
+    a {
+      color: #3cc4bf;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+    &.otherItemCaution {
+      background-color: #f4f4f4;
+
+      span {
+        color: #e84d3e;
+      }
+    }
+  }
+}
+
+.rcal_calendarSliderWrap {
+  &.rcal_calendarSliderEnabled {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+
+    .rcal_calendarSliderInner {
+      width: 300%;
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-start;
+      transition-property: margin-left;
+      transition-duration: 0.5s;
+      transition-timing-function: ease;
+      transition-delay: 0s;
+
+      .rcal_calendarSlide {
+        width: 33.3333333333%;
+      }
+    }
+  }
+}
+
+#selectShopContactArea {
+  .rcal_calendarSliderWrap {
+    &.rcal_calendarSliderEnabled {
+      .rcal_calendarSliderControllers {
+        width: 40px;
+        height: 40px;
+        display: block;
+        background-color: var(--rcal-accent, #90edc7);
+        background-repeat: no-repeat;
+        background-position: center center;
+        position: absolute;
+        top: 0;
+        z-index: 5;
+        box-sizing: border-box;
+        border-radius: calc(infinity * 1px);
+
+        &.disabled {
+          display: none;
+        }
+
+        &.rcal_calendarSliderNext {
+          right: 0;
+          background-image: url(../../images/icon/icon_arrow_right.svg);
+        }
+
+        &.rcal_calendarSliderPrev {
+          left: 0;
+          background-image: url(../../images/icon/icon_arrow_left.svg);
+        }
+      }
+    }
+  }
+  .rcal_display_calendarMainWrap > * {
+    margin-top: 30px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .rcal_display_ajax_calendarMainWrap {
+    > * {
+      margin-top: 30px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .rcal_calendarReservationTelArea {
+    background-color: #f4f4f4;
+    margin-top: 50px;
+    padding: 40px;
+    box-sizing: border-box;
+
+    > * {
+      margin-top: 15px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    .telText {
+      font-size: 16px;
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    .telInfoWrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > * {
+        margin-left: 13px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+
+      .telNumber {
+        display: flex;
+        align-items: center;
+
+        > * {
+          margin-left: 10px;
+
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+
+        .icon {
+          width: 24px;
+          height: 24px;
+          display: inline-block;
+          background-repeat: no-repeat;
+          background-size: contain;
+
+          &.tel {
+            background-image: url(../../images/icon/icon_tel.svg);
+          }
+        }
+
+        a {
+          display: inline-block;
+          color: #000;
+          font-size: 28px;
+
+          &:visited,
+          &:focus,
+          &:active {
+            color: #000;
+          }
+        }
+      }
+
+      .regularHolidayText {
+        font-size: 16px;
+        letter-spacing: 0.06em;
+      }
+    }
+  }
+}
+
+#selectShopContactCloseBtn {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  z-index: 100005;
+
+  > a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+
+    &:before,
+    &:after {
+      width: 100%;
+      height: 2px;
+      content: "";
+      display: block;
+      background-color: #666;
+      position: absolute;
+      top: 50%;
+      left: 0;
+    }
+
+    &:before {
+      transform: translateY(-50%) rotate(-45deg);
+    }
+
+    &:after {
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+}
+
+#selectShopContactBg {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000000;
+}
+
+#selectShopContactArea {
+  width: 84%;
+  height: 82.8vh;
+  background-color: #fff;
+  border-radius: 10px;
+  position: fixed;
+  box-sizing: border-box;
+  top: 50%;
+  left: 50%;
+  z-index: 1000000;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+#selectShopContact {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .selectShopContactWrap {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &.loading {
+      position: relative;
+
+      &:before {
+        width: 100%;
+        height: 100%;
+        content: "";
+        display: block;
+        background-color: rgba(255, 255, 255, 0.8);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+
+      &:after {
+        width: 30px;
+        height: 30px;
+        content: "";
+        display: block;
+        background-image: url("../../images/loading.gif");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+      }
+
+      .selectShopContactInner {
+        display: none;
+      }
+    }
+  }
+
+  .selectShopContactInner {
+    width: 90%;
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding: 40px 0 120px;
+    box-sizing: border-box;
+
+    .shopSelectTitleArea .title {
+      padding-left: 24px;
+      font-size: 15px;
+      font-family:
+        Koburina Gothic W6 JIS2004,
+        sans-serif;
+      letter-spacing: 0.06em;
+      line-height: 1.53;
+      position: relative;
+
+      &:before {
+        width: 16px;
+        height: 16px;
+        content: "";
+        display: block;
+        background-image: url(../../images/icon/calendar_bk.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin-top: -8px;
+      }
+    }
+  }
+
+  .selectShopContactContents {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+
+    .selectShopListWrap {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2vw;
+      margin-top: 25px;
+
+      dl {
+        padding: 10px 20px;
+        width: 30%;
+        box-sizing: border-box;
+
+        dt .areaName {
+          padding: 6px 10px;
+          font-size: 12px;
+          font-family:
+            Koburina Gothic W6 JIS2004,
+            sans-serif;
+          font-weight: bold;
+          background: #eee;
+          border-radius: 8px;
+        }
+
+        dd {
+          margin-top: 15px;
+          .prefGroup {
+            margin-top: 12px;
+          }
+          .prefName {
+            margin: 8px 0;
+            padding-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+          }
+        }
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        flex-flow: column;
+        gap: 10px;
+        list-style: none;
+
+        li {
+          &:nth-of-type(-n + 2) {
+            margin-top: 0;
+          }
+
+          &:nth-of-type(odd) {
+            margin-left: 0;
+          }
+
+          a {
+            display: block;
+            padding: 10px 40px 10px 10px;
+            color: #111111;
+            font-size: 14px;
+            border: 1px solid #eee;
+            box-sizing: border-box;
+            background-image: url(../../images/icon/arrow_darkGray.png);
+            background-size: 14px;
+            background-position: 87% center;
+            background-repeat: no-repeat;
+            border-radius: calc(infinity * 1px);
+          }
+        }
+      }
+    }
+  }
+
+  #selectShopContact_calendar {
+    padding-top: 37px;
+
+    #selectShopContact_calendarPrevBtn {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      a {
+        position: relative;
+        padding-left: 18px;
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        color: #666;
+        &:before {
+          position: absolute;
+          content: "";
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          background-image: url(../../images/icon/icon_arrow_left.svg);
+          background-repeat: no-repeat;
+          background-size: contain;
+          width: 0.9rem;
+          height: 1.1rem;
+        }
+      }
+    }
+  }
+}
+
+#selectShopContact_calendarArea {
+  .rcal_calendarMainWrap,
+  .eventinfoTextWrap {
+    width: 100%;
+  }
+}
+
+#thisShopContactCloseBtn {
+  width: 25px;
+  height: 14px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100005;
+
+  > a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+
+    &:before,
+    &:after {
+      width: 100%;
+      height: 1px;
+      content: "";
+      display: block;
+      background-color: #000;
+      position: absolute;
+      top: 50%;
+      left: 0;
+    }
+
+    &:before {
+      transform: translateY(-50%) rotate(-30deg);
+    }
+
+    &:after {
+      transform: translateY(-50%) rotate(30deg);
+    }
+  }
+}
+
+#thisShopContactBg {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+}
+
+#thisShopContactArea {
+  width: 90%;
+  height: 100%;
+  max-width: 600px;
+  min-height: 60vh;
+  max-height: 80vh;
+  background-color: #fff;
+  display: none;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1002;
+}
+
+#thisShopContact {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .thisShopContactWrap {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &.loading {
+      position: relative;
+
+      &:before {
+        width: 100%;
+        height: 100%;
+        content: "";
+        display: block;
+        background-color: #fff;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+
+      &:after {
+        width: 30px;
+        height: 30px;
+        content: "";
+        display: block;
+        background-image: url("../../images/loading.gif");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 2;
+      }
+
+      .thisShopContactInner {
+        display: none;
+      }
+    }
+  }
+
+  .thisShopContactInner {
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+}
+.selectShopContactBtn {
+  padding: 10px 20px;
+  color: var(--rcal-on-accent, #111111);
+  font-size: 15px;
+  background: var(--rcal-accent, #90edc7);
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  z-index: 100;
+  border-radius: calc(infinity * 1px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  &:hover {
+    color: var(--rcal-on-accent, #111111);
+  }
+  img {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+  }
+}
+
+// 予約フォーム＆完了画面
+.rcal_bookingFormArea,
+.rcal_successArea {
+  padding: 20px;
+  background-color: #fff;
+
+  @media screen and (max-width: 768px) {
+    padding: 0;
+  }
+
+  .rcal_bookingForm_title,
+  .rcal_success_title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+
+    @media screen and (max-width: 768px) {
+      font-size: 17px;
+      margin-bottom: 15px;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 16px;
+    }
+  }
+
+  // フォーム注意事項
+  .rcal_formNotice {
+    background: #f0f8ff;
+    border-left: 4px solid var(--rcal-accent, #90edc7);
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+
+    @media screen and (max-width: 768px) {
+      padding: 10px 12px;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    @media screen and (max-width: 480px) {
+      padding: 8px 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  }
+
+  .rcal_selectedTime {
+    font-size: 16px;
+    text-align: center;
+    color: var(--rcal-accent, #90edc7);
+  }
+
+  .rcal_field {
+    margin-bottom: 15px;
+
+    @media screen and (max-width: 768px) {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+
+      @media screen and (max-width: 480px) {
+        font-size: 13px;
+      }
+
+      a {
+        text-decoration: underline;
+      }
+
+      .req {
+        color: #e74c3c;
+        font-size: 12px;
+        margin-left: 5px;
+
+        @media screen and (max-width: 480px) {
+          font-size: 11px;
+        }
+      }
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-top: 5px;
+
+      @media screen and (max-width: 480px) {
+        padding: 8px;
+        font-size: 13px;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: var(--rcal-accent, #90edc7);
+      }
+    }
+
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+  }
+
+  .rcal_actions {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .rcal_btn {
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &.rcal_btn--primary {
+      background-color: var(--rcal-accent, #90edc7);
+      color: var(--rcal-on-accent, #111111);
+
+      &:hover:not(:disabled) {
+        opacity: 0.8;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .rcal_formMessage {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+
+    &.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    &.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  }
+}
+
+.rcal_successArea {
+  .rcal_success_booking_info {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+
+    @media screen and (max-width: 768px) {
+      padding: 15px;
+      margin: 15px 0;
+    }
+
+    h4 {
+      margin: 0 0 15px 0;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+
+      @media screen and (max-width: 768px) {
+        font-size: 15px;
+        margin-bottom: 12px;
+      }
+    }
+
+    dl {
+      margin: 0;
+      padding: 0;
+      line-height: 2;
+      border: 0;
+
+      @media screen and (max-width: 768px) {
+        line-height: 1.8;
+      }
+
+      dt {
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        color: #555;
+
+        @media screen and (max-width: 480px) {
+          width: 70px;
+          font-size: 14px;
+        }
+      }
+
+      dd {
+        display: inline;
+        margin: 0;
+        font-size: 16px;
+
+        @media screen and (max-width: 480px) {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .rcal_success_message {
+    font-size: 16px;
+    text-align: center;
+    line-height: 1.6;
+    white-space: pre-line;
+
+    @media screen and (max-width: 768px) {
+      font-size: 15px;
+    }
+
+    @media screen and (max-width: 480px) {
+      font-size: 14px;
+    }
+  }
+}
+
+// スライダー外の「予約フォームへ」ボタンをフォーム送信ボタンと統一
+#rcal_globalReserveBtnWrap {
+  text-align: center;
+
+  .rcal_btn.rcal_btn--primary {
+    background-color: var(--rcal-accent, #90edc7);
+    color: var(--rcal-on-accent, #111111);
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover:not(:disabled) {
+      opacity: 0.8;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+@-webkit-keyframes telIcom_swing {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  15% {
+    transform: rotate(-15deg);
+  }
+
+  25% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(-15deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes telIcom_swing {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  15% {
+    transform: rotate(-15deg);
+  }
+
+  25% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(-15deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+}
