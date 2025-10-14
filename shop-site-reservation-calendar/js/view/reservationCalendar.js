@@ -230,30 +230,41 @@ jQuery(document).ready(function ($) {
 
 			var $this = $(this);
 
+			// ショートコード埋め込みモードかチェック（現在のボタンの親要素をチェック）
+			var isShortcodeMode = $this.closest('.rcal-shortcode-embed-wrapper').length > 0;
+
 			// フォーム表示中の場合は、カレンダー＆時間選択に戻る
 			if ($('#rcal_bookingFormArea').is(':visible') || $('#rcal_successArea').is(':visible')) {
 				$('#rcal_bookingFormArea').hide();
 				$('#rcal_successArea').hide();
 				$('.rcal_calendarMainWrap').show();
-				// $('.rcal_calendar').show(); // カレンダーを再表示 x
-				// $('.rcal_statusDetailWrap').show(); // ステータス凡例を再表示 x
-				// $('.timeTableTitleArea').show(); // 時間選択タイトルを再表示 x
-				// $('.rcal_calendarHeader').show(); // 年月の見出しを再表示 x
-				// $('.rcal_calendarSliderControllers').show(); // スライド矢印を再表示 x
-				// $('#rcal_timeTableDetailArea').show(); // x
 				$('#rcal_openBookingBtn').prop('disabled', true);
 				$('#rcal_openBookingBtn').show();
 				$('.js-rcal-select-time').removeClass('selected');
-				// 店舗選択をスキップした場合は「戻る」ボタンを非表示、それ以外は表示
-				if (flg_shopSelectionSkipped) {
-					$(_selectShopContactCalendarPrevBtn).hide();
+
+				// ショートコード埋め込み時は「戻る」ボタンを非表示
+				if (isShortcodeMode) {
+					// クラスを削除して非表示にする
+					// 現在の埋め込みコンテキスト内の戻るボタンを探す
+					var $backBtn = $this.closest('.rcal-shortcode-embed-wrapper').find('#selectShopContact_calendarPrevBtn');
+					$backBtn.removeClass('rcal-show-back-btn');
+					// 中のaタグのスタイルも削除
+					$backBtn.find('a').css('display', '');
 				} else {
-					$(_selectShopContactCalendarPrevBtn).show();
+					// 店舗選択をスキップした場合は「戻る」ボタンを非表示、それ以外は表示
+					if (flg_shopSelectionSkipped) {
+						$(_selectShopContactCalendarPrevBtn).hide();
+					} else {
+						$(_selectShopContactCalendarPrevBtn).show();
+					}
 				}
 			} else {
-				// それ以外は通常通り店舗一覧へ戻る
-				$selectShopContactShopList.addClass(clName_selectShopContact_tab);
-				$selectShopContactCalendar.removeClass(clName_selectShopContact_tab);
+				// ショートコード埋め込み時は店舗一覧への戻りを無効化
+				if (!isShortcodeMode) {
+					// それ以外は通常通り店舗一覧へ戻る
+					$selectShopContactShopList.addClass(clName_selectShopContact_tab);
+					$selectShopContactCalendar.removeClass(clName_selectShopContact_tab);
+				}
 			}
 
 			flg_selectShopContactClick = false;
@@ -569,19 +580,29 @@ jQuery(document).ready(function ($) {
 		$form.find('input[name="timelabel"]').val(rcal_selectedTimeData.timelabel);
 		$form.find('.rcal_formMessage').hide().text('');
 
+		// ショートコード埋め込みモードかチェック（現在のボタンの親要素をチェック）
+		var $this = $(this);
+		var isShortcodeMode = $this.closest('.rcal-shortcode-embed-wrapper').length > 0;
+
 		// カレンダー＆時間選択を非表示、フォームを表示
 		$('.rcal_calendarMainWrap').hide();
-		// $('.rcal_calendar').hide(); // カレンダー全体を非表示 x
-		// $('.rcal_statusDetailWrap').hide(); // ステータス凡例を非表示 x
-		// $('.timeTableTitleArea').hide(); // 時間選択タイトルを非表示 x
-		// $('.rcal_calendarHeader').hide(); // 年月の見出しを非表示 x
-		// $('.rcal_calendarSliderControllers').hide(); // スライド矢印を非表示 x
-		// $('#rcal_timeTableDetailArea').hide(); // x
 		$('#rcal_bookingFormArea').show();
 		$('#rcal_successArea').hide();
 		$('#rcal_openBookingBtn').hide();
-		// フォーム表示時は「戻る」ボタンを常に表示（店舗選択スキップの場合でも）
-		$(_selectShopContactCalendarPrevBtn).show();
+
+		// フォーム表示時は「戻る」ボタンを常に表示
+		if (isShortcodeMode) {
+			// ショートコード埋め込み時は、クラスを追加して表示
+			// 現在の埋め込みコンテキスト内の戻るボタンを探す
+			var $backBtn = $this.closest('.rcal-shortcode-embed-wrapper').find('#selectShopContact_calendarPrevBtn');
+			// クラスを追加してCSSで表示
+			$backBtn.addClass('rcal-show-back-btn');
+			// 中のaタグも表示
+			$backBtn.find('a').css('display', 'inline-block');
+		} else {
+			// モーダル時は通常通りshow()で表示
+			$(_selectShopContactCalendarPrevBtn).show();
+		}
 
 		e.preventDefault();
 		return false;
@@ -629,7 +650,10 @@ jQuery(document).ready(function ($) {
 
 					$('#rcal_bookingFormArea').hide();
 					$('#rcal_successArea').show();
+					// 「戻る」ボタンを非表示（モーダル・ショートコード共通）
 					$(_selectShopContactCalendarPrevBtn).hide();
+					$(_selectShopContactCalendarPrevBtn).removeClass('rcal-show-back-btn');
+					$(_selectShopContactCalendarPrevBtn).find('a').css('display', ''); // aタグのスタイルも削除
 					$('#rcal_openBookingBtn').hide();
 					// フォームをリセット
 					$form[0].reset();
@@ -770,5 +794,13 @@ jQuery(document).ready(function ($) {
 		});
 	}
 	rcalSliderEvSetting();
+
+	/**
+	 * ショートコード埋め込みモードの初期化
+	 */
+	// ショートコード埋め込み時は「戻る」ボタンを最初から非表示
+	$('.rcal-shortcode-embed-wrapper').each(function () {
+		$(this).find(_selectShopContactCalendarPrevBtn).hide();
+	});
 });
 //]]>

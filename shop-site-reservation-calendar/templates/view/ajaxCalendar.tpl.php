@@ -14,7 +14,7 @@
  * @var str   $_->formNotice               フォーム注意事項
  */
 ?>
-<h1 class="calShop"><?php echo esc_html(isset($_->shopUser['display_name']) ? $_->shopUser['display_name'] : ($_->shopUser['displayName'] ?? '')); ?></h1>
+<p class="calShop"><?php echo esc_html(isset($_->shopUser['display_name']) ? $_->shopUser['display_name'] : ($_->shopUser['displayName'] ?? '')); ?></p>
 <?php // 外販告知表示は撤廃 ?>
 <?php if(!empty($_->calendarData)): ?>
     <div class="rcal_display_ajax_calendarMainWrap rcal_calendarMainWrap">

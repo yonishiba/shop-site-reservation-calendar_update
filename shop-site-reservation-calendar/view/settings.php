@@ -145,6 +145,13 @@ function rcal_calendar_ajax_date_timetable(){
 if($rcal_selectShopContactBtn){
 	add_action('wp_footer', 'rcal_calendar_selectShopContact_template', 10);
 	function rcal_calendar_selectShopContact_template(){
+		global $rcal_shortcode_used;
+		
+		// ショートコード使用時は、ショートコード内でモーダルを出力するため、ここではスキップ
+		if($rcal_shortcode_used){
+			return;
+		}
+		
 		// ライセンスゲート
 		if(!rcal_is_licensed()){
 			return;

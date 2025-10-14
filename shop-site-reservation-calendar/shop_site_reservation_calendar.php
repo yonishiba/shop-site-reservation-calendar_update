@@ -9,7 +9,7 @@
  * Plugin Name:       Shop Site Reservation Calendar
  * Plugin URI:        https://votra.jp/lp/wpcal/
  * Description:       店舗サイト予約カレンダー
- * Version:           2.0.4
+ * Version:           2.0.6
  * Author:            VOTRA Co., Ltd.
  * Author URI:        https://votra.jp
  * Update URI:        https://license-server.yoshinori-nishibayashi.workers.dev/update.json
@@ -385,10 +385,27 @@ add_shortcode('reservation_calendar', function($atts){
 
     // 一覧（予約ボタン+モーダル）を常に出力
     $tpl = new Tmpl();
-    $tpl->groupedShopList = rcal_get_all_shop_users();
+    $groupedShopList = rcal_get_all_shop_users();
+    
+    // 有効なユーザー数をカウント
+    $totalCount = 0;
+    $singleUserId = null;
+    foreach($groupedShopList as $shopList){
+        if(is_array($shopList)) {
+            $totalCount += count($shopList);
+            // 1名の場合のユーザーIDを保持
+            if($totalCount === 1 && count($shopList) === 1) {
+                $singleUserId = $shopList[0]['id'];
+            }
+        }
+    }
+    
+    $tpl->groupedShopList = $groupedShopList;
     $tpl->isSelectShopContactBtn = true;
     $tpl->classname = '';
     $tpl->title = 'ご希望の店舗を選択してください';
+    $tpl->totalShopCount = $totalCount;
+    $tpl->singleUserId = $singleUserId;
     $tpl->render('view/selectShopContact.tpl.php');
 
     // 特定ユーザーが指定されている場合は当月のカレンダーを即時描画
@@ -401,7 +418,34 @@ add_shortcode('reservation_calendar', function($atts){
     }
 
     if (!empty($userId)) {
+        // ショートコード埋め込み用のラッパーdivを追加（モーダルと完全に同じDOM構造を生成）
+        echo '<div class="rcal-shortcode-embed-wrapper" data-rcal-mode="shortcode">';
+        echo '<div id="selectShopContactArea" class="rcal-shortcode-area">'; // モーダルと同じID
+        echo '<div id="selectShopContact" class="rcal-shortcode-select-shop-contact">';
+        echo '<div class="selectShopContactWrap rcal-shortcode-wrap">';
+        echo '<div class="selectShopContactInner rcal-shortcode-inner">';
+        echo '<div id="selectShopContact_calendar" class="selectShopContactContents rcal-shortcode-calendar active">';
+        echo '<div id="selectShopContact_calendarPrevBtn">'; // 戻るボタン（非表示）
+        echo '<a href="javascript:void(0);">戻る</a>';
+        echo '</div>';
+        echo '<div id="selectShopContact_calendarArea" class="rcal-shortcode-calendar-area">';
         rcal_ajax_calendar(false, false, $userId, false, false);
+        echo '</div>'; // selectShopContact_calendarArea
+        echo '</div>'; // selectShopContact_calendar
+        echo '</div>'; // selectShopContactInner
+        echo '</div>'; // selectShopContactWrap
+        echo '</div>'; // selectShopContact
+        echo '</div>'; // selectShopContactArea
+        echo '</div>'; // rcal-shortcode-embed-wrapper
+        
+        // ショートコード埋め込み用のスライダー初期化スクリプト
+        echo '<script type="text/javascript">';
+        echo 'jQuery(document).ready(function($) {';
+        echo '  if (typeof rcalSliderEvSetting === "function") {';
+        echo '    rcalSliderEvSetting();';
+        echo '  }';
+        echo '});';
+        echo '</script>';
     }
 
     return ob_get_clean();

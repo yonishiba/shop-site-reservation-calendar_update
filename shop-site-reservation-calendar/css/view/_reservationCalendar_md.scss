@@ -136,4 +136,36 @@
       }
     }
   }
+
+  // ショートコード埋め込み時のタブレット対応
+  .rcal-shortcode-embed-wrapper {
+    #selectShopContactArea {
+      position: relative !important;
+      width: 100% !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    #selectShopContact {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+
+    .selectShopContactWrap {
+      width: 100%;
+      height: auto;
+    }
+
+    .selectShopContactInner {
+      width: 100%;
+    }
+
+    .timeTableDetailArea ul {
+      li {
+        width: calc(50% - 5px);
+        min-width: 120px;
+      }
+    }
+  }
 }

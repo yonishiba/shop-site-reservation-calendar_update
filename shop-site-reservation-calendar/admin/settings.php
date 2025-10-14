@@ -276,13 +276,6 @@ function _rcal_master_settings_page(){
                                     <?php else: ?>
                                         次回更新: <?php echo esc_html($expires_date); ?>
                                     <?php endif; ?>
-                                    
-                                    <?php if($is_near_expiry && !$is_canceled): ?>
-                                        <br>
-                                        <span style="color: #d68300;">
-                                            ⚠️ まもなく更新日です。支払い方法が有効か確認してください。
-                                        </span>
-                                    <?php endif; ?>
                                 <?php endif; ?>
                                 
                                 <?php if($is_canceled): ?>
@@ -316,54 +309,54 @@ function _rcal_master_settings_page(){
         
         <!-- サブスクリプション管理セクション -->
         <?php if($is_licensed && $license_key_raw): ?>
-            <hr style="margin: 30px 0;">
-            
-            <h3><?php echo esc_html__('サブスクリプション管理', 'ssrc'); ?></h3>
-            
-            <?php 
-            $status = isset($license_info['status']) ? $license_info['status'] : 'active';
-            $is_canceled = ($status === 'canceled');
-            ?>
-            
-            <?php if($is_canceled): ?>
-                <p style="color: #d68300; font-weight: bold;">
-                    <?php echo esc_html__('現在、サブスクリプションはキャンセルされています。', 'ssrc'); ?>
-                </p>
-                <p><?php echo esc_html__('継続利用を希望される場合は、下記ボタンから再度ご契約ください。', 'ssrc'); ?></p>
-            <?php else: ?>
-                <p><?php echo esc_html__('Stripeのセキュアなページで以下の操作が可能です：', 'ssrc'); ?></p>
-                <ul style="margin-left: 20px; margin-bottom: 15px; list-style: disc;">
-                    <li><?php echo esc_html__('サブスクリプションのキャンセル', 'ssrc'); ?></li>
-                    <li><?php echo esc_html__('支払い方法の更新（クレジットカード変更）', 'ssrc'); ?></li>
-                    <li><?php echo esc_html__('請求書の確認・ダウンロード', 'ssrc'); ?></li>
-                    <li><?php echo esc_html__('請求履歴の確認', 'ssrc'); ?></li>
-                </ul>
-            <?php endif; ?>
-            
-            <button type="button" 
-                    id="rcal-manage-subscription" 
-                    class="button button-secondary">
-                <span class="dashicons dashicons-admin-settings" style="vertical-align: middle;"></span>
+            <div style="background: #fff; border: 1px solid #ccd0d4; padding: 20px; margin: 20px 0;">
+                <h3><?php echo esc_html__('サブスクリプション管理', 'ssrc'); ?></h3>
+                
                 <?php 
-                if($is_canceled) {
-                    echo esc_html__('サブスクリプションを再開', 'ssrc');
-                } else {
-                    echo esc_html__('サブスクリプションを管理', 'ssrc');
-                }
+                $status = isset($license_info['status']) ? $license_info['status'] : 'active';
+                $is_canceled = ($status === 'canceled');
                 ?>
-            </button>
-            
-            <span id="rcal-portal-loading" style="display:none; margin-left: 10px;">
-                <span class="spinner is-active" style="float: none; margin: 0;"></span>
-                <?php echo esc_html__('リダイレクト中...', 'ssrc'); ?>
-            </span>
-            
-            <p class="description" style="margin-top: 10px;">
-                <?php echo esc_html__('※ Stripeのセキュアなページにリダイレクトされます。', 'ssrc'); ?>
-                <?php if(!$is_canceled): ?>
-                    <br><?php echo esc_html__('※ サブスクリプションをキャンセルした場合、次回更新日まで引き続きご利用いただけます。', 'ssrc'); ?>
+                
+                <?php if($is_canceled): ?>
+                    <p style="color: #d68300; font-weight: bold;">
+                        <?php echo esc_html__('現在、サブスクリプションはキャンセルされています。', 'ssrc'); ?>
+                    </p>
+                    <p><?php echo esc_html__('継続利用を希望される場合は、下記ボタンから再度ご契約ください。', 'ssrc'); ?></p>
+                <?php else: ?>
+                    <p><?php echo esc_html__('Stripeのセキュアなページで以下の操作が可能です：', 'ssrc'); ?></p>
+                    <ul style="margin-left: 20px; margin-bottom: 15px; list-style: disc;">
+                        <li><?php echo esc_html__('サブスクリプションのキャンセル', 'ssrc'); ?></li>
+                        <li><?php echo esc_html__('支払い方法の更新（クレジットカード変更）', 'ssrc'); ?></li>
+                        <li><?php echo esc_html__('請求書の確認・ダウンロード', 'ssrc'); ?></li>
+                        <li><?php echo esc_html__('請求履歴の確認', 'ssrc'); ?></li>
+                    </ul>
                 <?php endif; ?>
-            </p>
+                
+                <button type="button" 
+                        id="rcal-manage-subscription" 
+                        class="button button-secondary">
+                    <span class="dashicons dashicons-admin-settings" style="vertical-align: middle;"></span>
+                    <?php 
+                    if($is_canceled) {
+                        echo esc_html__('サブスクリプションを再開', 'ssrc');
+                    } else {
+                        echo esc_html__('サブスクリプションを管理', 'ssrc');
+                    }
+                    ?>
+                </button>
+                
+                <span id="rcal-portal-loading" style="display:none; margin-left: 10px;">
+                    <span class="spinner is-active" style="float: none; margin: 0;"></span>
+                    <?php echo esc_html__('リダイレクト中...', 'ssrc'); ?>
+                </span>
+                
+                <p class="description" style="margin-top: 10px;">
+                    <?php echo esc_html__('※ Stripeのセキュアなページにリダイレクトされます。', 'ssrc'); ?>
+                    <?php if(!$is_canceled): ?>
+                        <br><?php echo esc_html__('※ サブスクリプションをキャンセルした場合、次回更新日まで引き続きご利用いただけます。', 'ssrc'); ?>
+                    <?php endif; ?>
+                </p>
+            </div>
             
             <script>
             (function($) {
