@@ -678,14 +678,15 @@ function rcal_booking_create(){
     if(function_exists('mb_language')){ @mb_language('Japanese'); }
     if(function_exists('mb_internal_encoding')){ @mb_internal_encoding('UTF-8'); }
     
-    $fromHeader = "From: WordPress <wordpress@u-up.jp>";
+    $fromHeader_1 = "From: " . $notify_to . " <" . $notify_to . ">";
+    $fromHeader_2 = "From: " . $email . " <" . $email . ">";
     
     // 店舗への通知
-    $r1 = @mb_send_mail($notify_to, $subject, $body_text, $fromHeader);
+    $r1 = @mb_send_mail($notify_to, $subject, $body_text, $fromHeader_2);
     
     // お客様への自動返信
     $customer_body = "以下の内容で承りました。\n\n" . $body_text;
-    $r2 = @mb_send_mail($email, 'ご予約を受け付けました', $customer_body, $fromHeader);
+    $r2 = @mb_send_mail($email, 'ご予約を受け付けました', $customer_body, $fromHeader_1);
     
     if(empty($r1) || empty($r2)){
         wp_send_json_error(array('message' => 'メール送信に失敗しました。時間をおいて再度お試しください。'));
